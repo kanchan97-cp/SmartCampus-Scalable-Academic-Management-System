@@ -637,7 +637,7 @@ sequenceDiagram
         </div>
         <pre class="mermaid">
 flowchart TD
-    start([Start])
+    startNode([Start])
     login["User logs in with email and password"]
     verify["Backend verifies password and creates JWT"]
     role{"What is user role?"}
@@ -655,12 +655,12 @@ flowchart TD
     enroll["Enroll in course"]
     submitWork["Submit assignment file"]
     viewPerformance["View grades and attendance"]
-    end([End])
-
-    start --> login --> verify --> role
-    role -->|Admin| adminDashboard --> manageUsers --> manageCourses --> assignFaculty --> end
-    role -->|Faculty| facultyDashboard --> createSession --> markAttendance --> createAssignment --> gradeSubmission --> end
-    role -->|Student| studentDashboard --> browseCourses --> enroll --> submitWork --> viewPerformance --> end
+    endNode([End])
+ 
+    startNode --> login --> verify --> role
+    role -->|Admin| adminDashboard --> manageUsers --> manageCourses --> assignFaculty --> endNode
+    role -->|Faculty| facultyDashboard --> createSession --> markAttendance --> createAssignment --> gradeSubmission --> endNode
+    role -->|Student| studentDashboard --> browseCourses --> enroll --> submitWork --> viewPerformance --> endNode
         </pre>
       </section>
 
