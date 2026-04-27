@@ -315,53 +315,53 @@ flowchart LR
         <pre class="mermaid">
 classDiagram
     class Database {
-        -Pool pool
-        +query(text, params) QueryResult
-        +withTransaction(handler) T
-        +close() void
+        - pool
+        + query(text, params)
+        + withTransaction(handler)
+        + close()
     }
 
     class BaseRepository {
-        #Database database
-        #many(text, params) Row[]
-        #one(text, params) Row
+        # database
+        # many(text, params)
+        # one(text, params)
     }
 
     class UserRepository {
-        +findByEmail(email) UserEntity
-        +findById(userId) User
-        +findActiveAuthUserById(userId) AuthUser
-        +list(filters) User[]
-        +create(input) User
-        +update(userId, payload) User
+        + findByEmail(email)
+        + findById(userId)
+        + findActiveAuthUserById(userId)
+        + list(filters)
+        + create(input)
+        + update(userId, payload)
     }
 
     class CourseRepository {
-        +list(filters) Course[]
-        +findById(courseId) Course
-        +create(input) Course
-        +update(courseId, payload) Course
-        +assignFaculty(courseId, facultyId) void
+        + list(filters)
+        + findById(courseId)
+        + create(input)
+        + update(courseId, payload)
+        + assignFaculty(courseId, facultyId)
     }
 
     class AssignmentRepository {
-        +create(input) Assignment
-        +list(filters) Assignment[]
-        +findById(assignmentId) Assignment
-        +createSubmission(input) Submission
-        +listSubmissions(assignmentId) Submission[]
+        + create(input)
+        + list(filters)
+        + findById(assignmentId)
+        + createSubmission(input)
+        + listSubmissions(assignmentId)
     }
 
     class GradeRepository {
-        +findSubmissionContext(submissionId) SubmissionContext
-        +upsert(input) Grade
-        +listStudentGrades(studentId, courseId) Grade[]
+        + findSubmissionContext(submissionId)
+        + upsert(input)
+        + listStudentGrades(studentId, courseId)
     }
 
     class NotificationRepository {
-        +listByUser(userId) Notification[]
-        +create(input) void
-        +markRead(notificationId, userId) Notification
+        + listByUser(userId)
+        + create(input)
+        + markRead(notificationId, userId)
     }
 
     BaseRepository <|-- UserRepository
@@ -372,62 +372,64 @@ classDiagram
     BaseRepository --> Database
 
     class AuthService {
-        +login(email, password) AuthResult
-        +me(userId) User
-        +requestPasswordReset(email) ResetToken
-        +resetPassword(token, newPassword) Result
+        + login(email, password)
+        + me(userId)
+        + requestPasswordReset(email)
+        + resetPassword(token, newPassword)
     }
 
     class UserService {
-        +listUsers(filters) User[]
-        +createUser(input) User
-        +getUser(userId) User
-        +updateUser(userId, input) User
+        + listUsers(filters)
+        + createUser(input)
+        + getUser(userId)
+        + updateUser(userId, input)
     }
 
     class CourseService {
-        +listCourses(filters) Course[]
-        +getCourse(courseId) Course
-        +createCourse(input) Course
-        +updateCourse(courseId, input) Course
-        +assignFaculty(courseId, facultyId) Course
+        + listCourses(filters)
+        + getCourse(courseId)
+        + createCourse(input)
+        + updateCourse(courseId, input)
+        + assignFaculty(courseId, facultyId)
     }
 
     class AssignmentService {
-        +createAssignment(input) Assignment
-        +listAssignments(filters) Assignment[]
-        +submitAssignment(input) Submission
-        +listSubmissions(assignmentId, facultyId) Submission[]
+        + createAssignment(input)
+        + listAssignments(filters)
+        + submitAssignment(input)
+        + listSubmissions(assignmentId, facultyId)
     }
 
     class GradeService {
-        +gradeSubmission(input) Grade
-        +listStudentGrades(studentId, courseId) Grade[]
+        + gradeSubmission(input)
+        + listStudentGrades(studentId, courseId)
     }
 
     class DashboardStrategy {
         <<interface>>
-        +supportedRole UserRole
-        +build(userId) DashboardData
+        + supportedRole
+        + build(userId)
     }
 
     class AdminDashboardStrategy
     class FacultyDashboardStrategy
     class StudentDashboardStrategy
+
     class DashboardStrategyFactory {
-        +create(role) DashboardStrategy
+        + create(role)
     }
 
     DashboardStrategy <|.. AdminDashboardStrategy
     DashboardStrategy <|.. FacultyDashboardStrategy
     DashboardStrategy <|.. StudentDashboardStrategy
     DashboardStrategyFactory --> DashboardStrategy
+
     AuthService --> UserRepository
     UserService --> UserRepository
     CourseService --> CourseRepository
     AssignmentService --> AssignmentRepository
     GradeService --> GradeRepository
-        </pre>
+</pre>
       </section>
 
       <section id="er">

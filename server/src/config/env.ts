@@ -9,7 +9,11 @@ const envPathCandidates = [
 
 const envPath = envPathCandidates.find((candidate) => fs.existsSync(candidate));
 
-dotenv.config({ path: envPath });
+if (envPath) {
+  dotenv.config({ path: envPath });
+} else {
+  dotenv.config(); // Fallback to default behavior if no candidate exists
+}
 
 export const env = {
   port: Number(process.env.PORT ?? 4000),

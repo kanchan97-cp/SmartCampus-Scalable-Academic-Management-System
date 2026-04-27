@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import path from "path";
+import fs from "fs";
 import { env } from "./config/env";
 import authRoutes from "./modules/auth/auth.routes";
 import userRoutes from "./modules/users/user.routes";
@@ -24,7 +25,11 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static(path.resolve(process.cwd(), "server", "uploads")));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+// Fallback if running from root
+if (!fs.existsSync(path.join(process.cwd(), "uploads"))) {
+  app.use("/uploads", express.static(path.join(process.cwd(), "server", "uploads")));
+}
 
 app.get("/", (_req, res) => {
   res.json({
